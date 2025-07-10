@@ -27,7 +27,7 @@ export default function WorkExperiencePage() {
       <div className="space-y-8">
         {/* Header */}
         <div className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
+          <h1 className="text-4xl font-instrument-serif tracking-tight lg:text-5xl">
             Work Experience
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
@@ -40,7 +40,7 @@ export default function WorkExperiencePage() {
         {/* Work Experiences */}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-2xl font-instrument-serif">
               All Experiences
               {experiences.length > 0 && (
                 <span className="ml-2 text-sm font-normal text-muted-foreground">

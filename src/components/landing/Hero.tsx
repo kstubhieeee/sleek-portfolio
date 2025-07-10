@@ -61,8 +61,8 @@ export default function Hero() {
 
       {/* Text Area */}
       <div className="mt-8 flex flex-col gap-2">
-        <h1 className="text-4xl font-bold">
-          Hi, I&apos;m {name} — <span className="text-secondary">{title}</span>
+        <h1 className="text-4xl font-instrument-serif tracking-wide">
+          Hi, I&apos;m <span>{name}</span> — <span className="text-secondary">{title}</span>
         </h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-base md:text-lg text-neutral-500 whitespace-pre-wrap">

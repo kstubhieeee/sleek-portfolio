@@ -29,7 +29,7 @@ export default function SetupPage() {
       <div className="space-y-6 md:space-y-8">
         {/* Header */}
         <div className="space-y-3 md:space-y-4 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-instrument-serif tracking-tight">
             Setup
           </h1>
           <p className="mx-auto max-w-2xl text-base md:text-lg text-muted-foreground px-4">
@@ -54,7 +54,7 @@ export default function SetupPage() {
                   <div className="p-2 bg-muted rounded-md flex items-center justify-center text-[#736F70] border border-black/10 dark:border-white/10">
                     {step.icon}
                   </div>
-                  <h2 className="text-xl md:text-2xl font-semibold">
+                  <h2 className="text-xl md:text-2xl font-instrument-serif">
                     {step.title}
                   </h2>
                 </div>
@@ -190,7 +190,7 @@ export default function SetupPage() {
                 <div className="p-2 bg-muted rounded-md flex items-center justify-center text-[#736F70] border border-black/10 dark:border-white/10">
                   <CheckCircle className="size-4 text-secondary" />
                 </div>
-                <h2 className="text-xl md:text-2xl font-semibold">
+                <h2 className="text-xl md:text-2xl font-instrument-serif">
                   Complete Setup
                 </h2>
               </div>

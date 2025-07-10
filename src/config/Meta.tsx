@@ -12,16 +12,16 @@ export interface PageMeta {
 // Base site configuration
 export const siteConfig = {
   name: heroConfig.name,
-  title: 'Sleek Portfolio',
-  description: 'Sleek Portfolio Template by @Ramxcodes',
+  title: 'Kaustubh\'s Portfolio',
+  description: 'Portfolio by Kaustubh Bane',
   url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   ogImage: '/meta/opengraph-image.png',
   author: {
     name: about.name,
-    twitter: '@ramxcodes',
-    github: 'ramxcodes',
-    linkedin: 'ramxcodes',
-    email: 'ramxcodes@gmail.com',
+    twitter: '@kstubhie',
+    github: 'kstubhieeee',
+    linkedin: 'kstubhie',
+    email: 'banekaustubh27@gmail.com',
   },
   keywords: [
     'portfolio',

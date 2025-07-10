@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export default function About() {
   return (
-    <Container className="mt-20">
+    <Container className="mt-20 md:mt-24">
       <SectionHeading subHeading="About" heading="Me" />
       {/* About me */}
       <div className="mt-8 flex flex-col gap-4 md:flex-row">
@@ -20,7 +20,7 @@ export default function About() {
           className="border-secondary size-60 rounded-md border-2 bg-blue-300 dark:bg-yellow-300"
         />
         <div className="mt-4">
-          <h3 className="text-2xl font-bold">{about.name}</h3>
+          <h3 className="text-2xl font-instrument-serif">{about.name}</h3>
           <p className="text-secondary mt-4">{about.description}</p>
           <p className="text-secondary mt-8 font-bold">Skills</p>
           <div className="flex flex-wrap gap-2">

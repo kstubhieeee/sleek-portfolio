@@ -29,7 +29,7 @@ export default function GearsPage() {
       <div className="space-y-8">
         {/* Header */}
         <div className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
+          <h1 className="text-4xl font-instrument-serif tracking-tight lg:text-5xl">
             Gears
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
@@ -40,7 +40,7 @@ export default function GearsPage() {
 
         {/* Devices Section */}
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Devices</h2>
+          <h2 className="text-2xl font-instrument-serif">Devices</h2>
           <div className="flex flex-col flex-wrap gap-4">
             {devices.map((device) => (
               <div key={device.name} className="flex items-center gap-4">
@@ -61,7 +61,7 @@ export default function GearsPage() {
             <div className="p-2 bg-muted rounded-md flex items-center justify-center text-[#736F70] border border-black/10 dark:border-white/10">
               <Puzzle className="size-4" />
             </div>
-            <h2 className="text-2xl font-semibold">Web Extensions</h2>
+            <h2 className="text-2xl font-instrument-serif">Web Extensions</h2>
           </div>
           <div className="flex flex-col flex-wrap gap-4 mt-8">
             {webExtensions.map((extension, index) => (
@@ -88,7 +88,7 @@ export default function GearsPage() {
             <div className="p-2 bg-muted rounded-md flex items-center justify-center text-[#736F70] border border-black/10 dark:border-white/10">
               <Monitor className="size-4" />
             </div>
-            <h2 className="text-2xl font-semibold">Software</h2>
+            <h2 className="text-2xl font-instrument-serif">Software</h2>
           </div>
           <div className="flex flex-col flex-wrap gap-4 mt-8">
             {software.map((app, index) => (

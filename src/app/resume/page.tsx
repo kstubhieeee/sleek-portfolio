@@ -25,7 +25,7 @@ export default function ResumePage() {
     <Container className="py-16">
       <div className="space-y-8">
         <div className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
+          <h1 className="text-4xl font-instrument-serif tracking-tight lg:text-5xl">
             Resume
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">

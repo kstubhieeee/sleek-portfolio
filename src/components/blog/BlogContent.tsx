@@ -45,7 +45,7 @@ export function BlogContent({ frontmatter, content }: BlogContentProps) {
             ))}
           </div>
 
-          <h1 className="text-4xl font-bold leading-tight lg:text-5xl">
+          <h1 className="text-4xl font-instrument-serif leading-tight lg:text-5xl">
             {title}
           </h1>
 

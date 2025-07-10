@@ -11,7 +11,7 @@ export default function Blog() {
   const posts = getPublishedBlogPosts();
 
   return (
-    <Container className="mt-20">
+    <Container className="mt-20 md:mt-24">
       <SectionHeading subHeading="Featured" heading="Blogs" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         {posts.slice(0, 2).map((post) => (
