@@ -30,7 +30,7 @@ interface Message {
 const initialMessages: Message[] = [
   {
     id: 1,
-    text: "Hello! I'm Ram's Portfolio Assistant. How can I help you?",
+    text: "Hello! I'm Kaustubh's Portfolio Assistant. How can I help you?",
     sender: 'bot',
     timestamp: new Date().toLocaleTimeString([], {
       hour: '2-digit',
@@ -223,10 +223,10 @@ const ChatBubble: React.FC = () => {
         prev.map((msg) =>
           msg.id === botMessageId
             ? {
-                ...msg,
-                text: "I'm sorry, I'm having trouble responding right now. Please try again later.",
-                isStreaming: false,
-              }
+              ...msg,
+              text: "I'm sorry, I'm having trouble responding right now. Please try again later.",
+              isStreaming: false,
+            }
             : msg,
         ),
       );
