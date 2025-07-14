@@ -1,0 +1,1068 @@
+---
+title: 'The Art of JSON: From Basics to Advanced Applications'
+description: 'A comprehensive guide to mastering JSON across technologies and AI applications'
+image: '/blog/json.png'
+tags: ['backend', 'development', 'nextjs','json','ai']
+date: '2025-07-14'
+isPublished: true
+---
+
+
+## Introduction to JSON
+
+JSON (JavaScript Object Notation) has become the lingua franca of modern web development and data exchange. Despite its humble beginnings as a subset of JavaScript, JSON has transcended its origins to become a universal data format used across programming languages, databases, APIs, and even AI systems.
+
+In today's interconnected digital landscape, JSON serves as the bridge between different systems, enabling seamless data communication from web APIs to mobile applications, from database queries to AI model responses. Its simplicity, readability, and lightweight nature have made it the preferred choice for developers worldwide.
+
+## JSON Fundamentals
+
+### What is JSON?
+
+JSON stands for JavaScript Object Notation, but don't let the name fool you – it's language-independent. Created by Douglas Crockford in the early 2000s, JSON was designed to be a lightweight, text-based data interchange format that humans can read and write easily.
+
+### Basic JSON Syntax
+
+JSON is built on two fundamental structures:
+- A collection of name/value pairs (similar to objects, dictionaries, or hash tables)
+- An ordered list of values (similar to arrays or lists)
+
+#### Data Types in JSON
+
+JSON supports six basic data types:
+
+```json
+{
+  "string": "Hello, World!",
+  "number": 42,
+  "boolean": true,
+  "null": null,
+  "array": [1, 2, 3, "four", true],
+  "object": {
+    "nested": "value",
+    "count": 10
+  }
+}
+```
+
+#### JSON vs JavaScript Objects
+
+While JSON syntax is derived from JavaScript object notation, there are key differences:
+
+**JSON:**
+```json
+{
+  "name": "John",
+  "age": 30,
+  "active": true
+}
+```
+
+**JavaScript Object:**
+```javascript
+{
+  name: "John",          // Keys don't need quotes
+  age: 30,
+  active: true,
+  sayHello: function() { // Functions are allowed
+    return "Hello!";
+  }
+}
+```
+
+### JSON Structure Examples
+
+#### Simple User Profile
+```json
+{
+  "id": 1,
+  "username": "johndoe",
+  "email": "john@example.com",
+  "profile": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "age": 30,
+    "preferences": {
+      "theme": "dark",
+      "notifications": true,
+      "language": "en"
+    }
+  },
+  "roles": ["user", "moderator"],
+  "lastLogin": "2024-01-15T10:30:00Z"
+}
+```
+
+#### E-commerce Product
+```json
+{
+  "productId": "ABC123",
+  "name": "Wireless Headphones",
+  "category": "Electronics",
+  "price": {
+    "amount": 199.99,
+    "currency": "USD"
+  },
+  "specifications": {
+    "battery": "30 hours",
+    "connectivity": ["Bluetooth 5.0", "USB-C"],
+    "features": ["Noise Cancellation", "Quick Charge"]
+  },
+  "availability": {
+    "inStock": true,
+    "quantity": 50,
+    "warehouses": ["NY", "CA", "TX"]
+  },
+  "reviews": [
+    {
+      "userId": 456,
+      "rating": 5,
+      "comment": "Amazing sound quality!",
+      "date": "2024-01-10"
+    }
+  ]
+}
+```
+
+## JSON in Different Technologies
+
+### JavaScript and JSON
+
+JavaScript provides native support for JSON through two primary methods:
+
+#### JSON.parse()
+Converts JSON strings into JavaScript objects:
+
+```javascript
+const jsonString = '{"name": "Alice", "age": 25}';
+const userObject = JSON.parse(jsonString);
+console.log(userObject.name); // "Alice"
+
+// Handling errors
+try {
+  const parsed = JSON.parse(invalidJson);
+} catch (error) {
+  console.error('Invalid JSON:', error.message);
+}
+```
+
+#### JSON.stringify()
+Converts JavaScript objects into JSON strings:
+
+```javascript
+const user = {
+  name: "Bob",
+  age: 30,
+  hobbies: ["reading", "coding"]
+};
+
+const jsonString = JSON.stringify(user);
+console.log(jsonString); // '{"name":"Bob","age":30,"hobbies":["reading","coding"]}'
+
+// Pretty printing
+const prettyJson = JSON.stringify(user, null, 2);
+console.log(prettyJson);
+```
+
+#### Advanced JSON Operations in JavaScript
+
+```javascript
+// Custom serialization with replacer function
+const data = {
+  name: "Charlie",
+  password: "secret123",
+  email: "charlie@example.com"
+};
+
+const publicData = JSON.stringify(data, (key, value) => {
+  if (key === 'password') return undefined; // Exclude password
+  return value;
+});
+
+// Custom parsing with reviver function
+const jsonWithDates = '{"name":"David","birthDate":"2024-01-01T00:00:00.000Z"}';
+const parsed = JSON.parse(jsonWithDates, (key, value) => {
+  if (key === 'birthDate') return new Date(value);
+  return value;
+});
+```
+
+### JSON in Python
+
+Python's `json` module provides comprehensive JSON support:
+
+```python
+import json
+from datetime import datetime
+
+# Parsing JSON
+json_string = '{"name": "Eve", "age": 28}'
+data = json.loads(json_string)
+print(data['name'])  # Eve
+
+# Creating JSON
+user = {
+    "name": "Frank",
+    "age": 35,
+    "is_active": True,
+    "hobbies": ["photography", "hiking"]
+}
+
+json_string = json.dumps(user, indent=2)
+print(json_string)
+
+# Working with files
+with open('data.json', 'w') as f:
+    json.dump(user, f, indent=2)
+
+with open('data.json', 'r') as f:
+    loaded_data = json.load(f)
+```
+
+#### Custom JSON Encoders in Python
+
+```python
+import json
+from datetime import datetime
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super().default(obj)
+
+data = {
+    "name": "Grace",
+    "created_at": datetime.now()
+}
+
+json_string = json.dumps(data, cls=DateTimeEncoder)
+```
+
+### JSON in Java
+
+Java provides JSON support through various libraries:
+
+#### Using Jackson
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JsonExample {
+    public static void main(String[] args) {
+        ObjectMapper mapper = new ObjectMapper();
+        
+        // Object to JSON
+        User user = new User("Henry", 40);
+        String jsonString = mapper.writeValueAsString(user);
+        
+        // JSON to Object
+        User parsedUser = mapper.readValue(jsonString, User.class);
+    }
+}
+
+class User {
+    private String name;
+    private int age;
+    
+    // Constructors, getters, setters
+}
+```
+
+#### Using Gson
+```java
+import com.google.gson.Gson;
+
+public class GsonExample {
+    public static void main(String[] args) {
+        Gson gson = new Gson();
+        
+        User user = new User("Ivy", 32);
+        String json = gson.toJson(user);
+        
+        User parsedUser = gson.fromJson(json, User.class);
+    }
+}
+```
+
+### JSON in TypeScript
+
+TypeScript adds type safety to JSON operations:
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  preferences?: {
+    theme: 'light' | 'dark';
+    notifications: boolean;
+  };
+}
+
+// Type-safe JSON parsing
+function parseUser(jsonString: string): User | null {
+  try {
+    const parsed = JSON.parse(jsonString);
+    
+    // Runtime validation
+    if (typeof parsed.id === 'number' && 
+        typeof parsed.name === 'string' && 
+        typeof parsed.email === 'string') {
+      return parsed as User;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Invalid JSON:', error);
+    return null;
+  }
+}
+
+// Creating typed JSON
+const user: User = {
+  id: 1,
+  name: "Jack",
+  email: "jack@example.com",
+  preferences: {
+    theme: "dark",
+    notifications: true
+  }
+};
+
+const jsonString = JSON.stringify(user);
+```
+
+### JSON in React
+
+React applications heavily rely on JSON for state management and API communication:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function UserProfile() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    fetch('/api/user/123')
+      .then(response => response.json())
+      .then(userData => {
+        setUser(userData);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching user:', error);
+        setLoading(false);
+      });
+  }, []);
+  
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>User not found</div>;
+  
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <p>Email: {user.email}</p>
+      {user.preferences && (
+        <div>
+          <p>Theme: {user.preferences.theme}</p>
+          <p>Notifications: {user.preferences.notifications ? 'On' : 'Off'}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### JSON in Node.js
+
+Node.js applications use JSON extensively for configuration, APIs, and data exchange:
+
+```javascript
+const express = require('express');
+const fs = require('fs').promises;
+
+const app = express();
+app.use(express.json()); // Parse JSON bodies
+
+// API endpoint returning JSON
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await fs.readFile('users.json', 'utf8');
+    res.json(JSON.parse(users));
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to load users' });
+  }
+});
+
+// API endpoint accepting JSON
+app.post('/api/users', async (req, res) => {
+  try {
+    const newUser = req.body;
+    
+    // Validate JSON structure
+    if (!newUser.name || !newUser.email) {
+      return res.status(400).json({ 
+        error: 'Name and email are required' 
+      });
+    }
+    
+    // Save to file
+    const users = JSON.parse(await fs.readFile('users.json', 'utf8'));
+    users.push({ ...newUser, id: users.length + 1 });
+    await fs.writeFile('users.json', JSON.stringify(users, null, 2));
+    
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create user' });
+  }
+});
+```
+
+## Advanced JSON Techniques
+
+### JSON Path and Querying
+
+JSONPath provides a way to navigate and query JSON structures:
+
+```javascript
+const data = {
+  store: {
+    book: [
+      {
+        category: "reference",
+        author: "Nigel Rees",
+        title: "Sayings of the Century",
+        price: 8.95
+      },
+      {
+        category: "fiction",
+        author: "J.R.R. Tolkien",
+        title: "The Lord of the Rings",
+        price: 22.99
+      }
+    ],
+    bicycle: {
+      color: "red",
+      price: 19.95
+    }
+  }
+};
+
+// JSONPath examples:
+// $.store.book[*].author - All book authors
+// $.store..price - All prices in the store
+// $.store.book[?(@.price < 10)] - Books cheaper than $10
+```
+
+### JSON Transformation
+
+```javascript
+// Transform JSON structure
+function transformUserData(apiResponse) {
+  return {
+    id: apiResponse.user_id,
+    name: `${apiResponse.first_name} ${apiResponse.last_name}`,
+    contact: {
+      email: apiResponse.email_address,
+      phone: apiResponse.phone_number
+    },
+    preferences: {
+      theme: apiResponse.ui_theme || 'light',
+      language: apiResponse.preferred_language || 'en'
+    }
+  };
+}
+
+// Batch transformation
+function transformUsers(users) {
+  return users.map(transformUserData);
+}
+```
+
+### JSON Streaming
+
+For large JSON files, streaming is essential:
+
+```javascript
+const fs = require('fs');
+const StreamValues = require('stream-json/streamers/StreamValues');
+
+fs.createReadStream('large-data.json')
+  .pipe(StreamValues.withParser())
+  .on('data', (data) => {
+    console.log(data.value); // Process each value
+  })
+  .on('end', () => {
+    console.log('Streaming complete');
+  });
+```
+
+## JSON Schema and Validation
+
+JSON Schema provides a way to validate JSON structure and content:
+
+### Basic Schema Definition
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 150
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark"]
+        },
+        "notifications": {
+          "type": "boolean"
+        }
+      },
+      "required": ["theme"]
+    }
+  },
+  "required": ["name", "email"],
+  "additionalProperties": false
+}
+```
+
+### Schema Validation in JavaScript
+
+```javascript
+const Ajv = require('ajv');
+const addFormats = require('ajv-formats');
+
+const ajv = new Ajv();
+addFormats(ajv);
+
+const schema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    age: { type: "number", minimum: 0 },
+    email: { type: "string", format: "email" }
+  },
+  required: ["name", "email"]
+};
+
+const validate = ajv.compile(schema);
+
+function validateUser(userData) {
+  const valid = validate(userData);
+  if (!valid) {
+    console.log('Validation errors:', validate.errors);
+    return false;
+  }
+  return true;
+}
+
+// Usage
+const user = {
+  name: "John Doe",
+  age: 30,
+  email: "john@example.com"
+};
+
+if (validateUser(user)) {
+  console.log('User data is valid');
+}
+```
+
+## JSON in AI Applications
+
+### AI Question Paper Generator
+
+In AI-powered question paper generation systems, JSON plays a crucial role in structuring both the input requirements and the generated output. Let's examine how JSON is used in a real-world AI question paper generator:
+
+#### Input Structure for AI Prompting
+
+```json
+{
+  "title": "Advanced Computer Science Examination",
+  "subject": "Data Structures and Algorithms",
+  "totalMarks": 100,
+  "duration": 180,
+  "difficulty": "medium",
+  "marksDistribution": {
+    "mcq": 20,
+    "short": 30,
+    "long": 50
+  },
+  "content": "Binary trees are hierarchical data structures...",
+  "inputMethod": "content"
+}
+```
+
+#### AI Response Structure
+
+The AI system is instructed to return a structured JSON response:
+
+```json
+{
+  "title": "Advanced Computer Science Examination",
+  "subject": "Data Structures and Algorithms",
+  "totalMarks": 100,
+  "duration": 180,
+  "instructions": [
+    "Answer all questions in the space provided.",
+    "Total marks: 100. Time allowed: 3 hours.",
+    "Write clearly and show all your working where applicable."
+  ],
+  "sections": [
+    {
+      "title": "Section A: Multiple Choice Questions",
+      "description": "Answer all questions in this section.",
+      "questions": [
+        {
+          "id": 1,
+          "text": "What is the time complexity of inserting a node in a binary search tree?",
+          "marks": 2,
+          "difficulty": "medium",
+          "type": "mcq",
+          "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+          "answer": "B"
+        }
+      ]
+    },
+    {
+      "title": "Section B: Short Answer Questions",
+      "description": "Answer any 3 questions from this section.",
+      "questions": [
+        {
+          "id": 1,
+          "text": "Explain the difference between a stack and a queue with examples.",
+          "marks": 10,
+          "difficulty": "medium",
+          "type": "short"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Implementation in TypeScript
+
+```typescript
+interface Question {
+  id: number;
+  text: string;
+  marks: number;
+  difficulty: 'easy' | 'medium' | 'hard';
+  type: 'mcq' | 'short' | 'long';
+  options?: string[];
+  answer?: string;
+}
+
+interface QuestionPaper {
+  title: string;
+  subject: string;
+  totalMarks: number;
+  duration: number;
+  instructions: string[];
+  sections: Array<{
+    title: string;
+    description: string;
+    questions: Question[];
+  }>;
+}
+
+// AI prompt construction
+function buildAIPrompt(requirements: any): string {
+  const prompt = `Generate a ${requirements.difficulty} difficulty level question paper for the subject "${requirements.subject}" with the title "${requirements.title}". 
+  
+  The question paper should have a total of ${requirements.totalMarks} marks and last for ${requirements.duration} minutes.
+  
+  The marks distribution should be:
+  - Multiple Choice Questions: ${requirements.marksDistribution.mcq} marks
+  - Short Answer Questions: ${requirements.marksDistribution.short} marks
+  - Long Answer Questions: ${requirements.marksDistribution.long} marks
+  
+  Base the questions on this content: ${requirements.content}
+  
+  Output a JSON object with the exact structure shown in the example.`;
+  
+  return prompt;
+}
+
+// Validation function
+function validateQuestionPaper(data: any): data is QuestionPaper {
+  if (!data.title || !data.subject || !data.totalMarks || !data.duration || 
+      !Array.isArray(data.instructions) || !Array.isArray(data.sections)) {
+    return false;
+  }
+  
+  for (const section of data.sections) {
+    if (!section.title || !Array.isArray(section.questions)) {
+      return false;
+    }
+    
+    for (const question of section.questions) {
+      if (!question.id || !question.text || !question.marks || 
+          !question.difficulty || !question.type) {
+        return false;
+      }
+      
+      if (question.type === 'mcq' && (!Array.isArray(question.options) || !question.options.length)) {
+        return false;
+      }
+    }
+  }
+  
+  return true;
+}
+```
+
+### AI PowerPoint Generator
+
+JSON is equally important in AI-powered presentation generation systems:
+
+#### Input Structure for Presentation Generation
+
+```json
+{
+  "content": "Artificial Intelligence is transforming industries...",
+  "title": "AI in Modern Business",
+  "inputMethod": "content",
+  "maxSlides": 5,
+  "format": "pptx"
+}
+```
+
+#### AI Response Structure for Slides
+
+```json
+[
+  {
+    "slide": 1,
+    "heading": "AI in Modern Business",
+    "points": [
+      "AI adoption has grown by 270% in the last 4 years",
+      "50% of enterprises use AI for customer service",
+      "AI can increase productivity by up to 40%",
+      "Machine learning drives personalized experiences"
+    ],
+    "image": "business-ai"
+  },
+  {
+    "slide": 2,
+    "heading": "Key AI Applications",
+    "points": [
+      "Natural Language Processing for chatbots",
+      "Computer Vision for quality control",
+      "Predictive Analytics for forecasting",
+      "Recommendation Systems for e-commerce"
+    ],
+    "image": "technology"
+  }
+]
+```
+
+#### Implementation Example
+
+```typescript
+interface SlideContent {
+  slide: number;
+  heading: string;
+  points: string[];
+  image: string;
+  imageUrl?: string;
+}
+
+// AI prompt for slide generation
+function buildSlidePrompt(content: string, title?: string): string {
+  const presentationTitle = title ? ` with title "${title}"` : '';
+  return `Create a presentation${presentationTitle} based on this text with a maximum of 5 slides: ${content}
+
+For each slide, provide:
+1. A clear heading/title
+2. 3-5 concise bullet points
+3. A simple, visually descriptive image search term (1-2 words)
+
+Format your response as a valid JSON array with objects containing: 
+[
+  {
+    "slide": (slide number),
+    "heading": (slide title),
+    "points": [(bullet points)],
+    "image": (simple image search term)
+  }
+]
+
+Important: 
+- Your entire response must be valid JSON that I can parse directly
+- For the "image" field, provide simple visual concepts like "teamwork", "success", "technology"
+- Keep image terms to 1-2 words maximum for best results`;
+}
+
+// JSON parsing with fallback methods
+function parseSlideContent(aiResponse: string): SlideContent[] {
+  try {
+    // Try direct JSON parsing first
+    const parsed = JSON.parse(aiResponse);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch (e) {
+    console.error('Direct JSON parsing failed, trying fallback methods');
+  }
+  
+  // Extract JSON from markdown or other formatting
+  const jsonMatch = aiResponse.match(/```json\s*([\s\S]*?)\s*```/) || 
+                   aiResponse.match(/\[\s*{\s*"slide"/);
+  
+  if (jsonMatch) {
+    try {
+      const jsonText = jsonMatch[1] || aiResponse;
+      const startIndex = jsonText.indexOf('[');
+      const endIndex = jsonText.lastIndexOf(']') + 1;
+      
+      if (startIndex !== -1 && endIndex !== -1) {
+        const jsonArray = jsonText.substring(startIndex, endIndex);
+        return JSON.parse(jsonArray);
+      }
+    } catch (e) {
+      console.error('Fallback parsing failed:', e);
+    }
+  }
+  
+  return [];
+}
+```
+
+### JSON in AI Model Configuration
+
+AI models often use JSON for configuration and fine-tuning:
+
+```json
+{
+  "model": "gpt-4",
+  "parameters": {
+    "temperature": 0.7,
+    "maxTokens": 2048,
+    "topP": 1,
+    "frequencyPenalty": 0,
+    "presencePenalty": 0
+  },
+  "systemPrompt": "You are a helpful assistant that generates educational content.",
+  "outputFormat": {
+    "type": "json_object",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": { "type": "string" },
+              "type": { "type": "string", "enum": ["mcq", "short", "long"] },
+              "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Real-World Case Studies
+
+### Case Study 1: E-commerce API Integration
+
+A major e-commerce platform uses JSON extensively for product catalog management:
+
+```json
+{
+  "products": [
+    {
+      "id": "PROD001",
+      "name": "Wireless Bluetooth Headphones",
+      "category": {
+        "id": "ELECTRONICS",
+        "name": "Electronics",
+        "subcategory": "Audio"
+      },
+      "pricing": {
+        "basePrice": 199.99,
+        "currency": "USD",
+        "discounts": [
+          {
+            "type": "percentage",
+            "value": 15,
+            "validUntil": "2024-02-01T23:59:59Z"
+          }
+        ]
+      },
+      "inventory": {
+        "available": 45,
+        "reserved": 5,
+        "warehouses": [
+          {
+            "location": "NYC",
+            "quantity": 20
+          },
+          {
+            "location": "LA",
+            "quantity": 25
+          }
+        ]
+      },
+      "specifications": {
+        "battery": "30 hours",
+        "connectivity": ["Bluetooth 5.0", "USB-C"],
+        "features": ["ANC", "Quick Charge", "Voice Assistant"]
+      },
+      "media": {
+        "images": [
+          "https://example.com/images/prod001_1.jpg",
+          "https://example.com/images/prod001_2.jpg"
+        ],
+        "videos": [
+          "https://example.com/videos/prod001_demo.mp4"
+        ]
+      },
+      "seo": {
+        "title": "Premium Wireless Headphones - 30Hr Battery",
+        "description": "Experience superior sound quality with our premium wireless headphones...",
+        "keywords": ["wireless", "bluetooth", "headphones", "audio"]
+      }
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 50,
+    "totalItems": 1000,
+    "itemsPerPage": 20
+  },
+  "filters": {
+    "applied": [
+      {
+        "field": "category",
+        "value": "Electronics"
+      },
+      {
+        "field": "priceRange",
+        "value": "100-300"
+      }
+    ],
+    "available": [
+      {
+        "field": "brand",
+        "options": ["Sony", "Bose", "Apple", "Samsung"]
+      },
+      {
+        "field": "rating",
+        "options": ["4+", "3+", "2+", "1+"]
+      }
+    ]
+  }
+}
+```
+
+### Case Study 2: Social Media Platform
+
+A social media platform uses JSON for post and user data management:
+
+```json
+{
+  "post": {
+    "id": "POST_12345",
+    "author": {
+      "id": "USER_789",
+      "username": "techguru",
+      "displayName": "Tech Guru",
+      "avatar": "https://example.com/avatars/techguru.jpg",
+      "verified": true
+    },
+    "content": {
+      "text": "Just released a new blog post about JSON best practices! 🚀",
+      "hashtags": ["#JSON", "#WebDev", "#Programming"],
+      "mentions": [
+        {
+          "userId": "USER_456",
+          "username": "webdevpro",
+          "startIndex": 45,
+          "endIndex": 55
+        }
+      ],
+      "media": [
+        {
+          "type": "image",
+          "url": "https://example.com/media/blog-preview.jpg",
+          "altText": "Blog post preview",
+          "dimensions": {
+            "width": 1200,
+            "height": 630
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "timestamp": "2024-01-15T14:30:00Z",
+      "location": {
+        "city": "San Francisco",
+        "country": "USA",
+        "coordinates": {
+          "lat": 37.7749,
+          "lng": -122.4194
+        }
+      },
+      "device": "Mobile",
+      "platform": "iOS"
+    },
+    "engagement": {
+      "likes": 142,
+      "shares": 23,
+      "comments": 18,
+      "views": 1056
+    },
+    "privacy": {
+      "visibility": "public",
+      "allowComments": true,
+      "allowSharing": true
+    }
+  },
+  "comments": [
+    {
+      "id": "COMMENT_001",
+      "author": {
+        "id": "USER_321",
+        "username": "jsdev",
+        "displayName": "JS Developer"
+      },
+      "text": "Great post! JSON is indeed crucial for modern web development.",
+      "timestamp": "2024-01-15T14:45:00Z",
+      "likes": 5,
+      "replies": [
+        {
+          "id": "REPLY_001",
+          "author": {
+            "id": "USER_789",
+            "username": "techguru"
+          },
+          "text": "Thanks! I'm glad you found it helpful.",
+          "timestamp": "2024-01-15T14:50:00Z",
+          "likes": 2
+        }
+      ]
+    }
+  ]
+}
+```
