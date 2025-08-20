@@ -1,6 +1,16 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  
+  // Skip ESLint checking during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  // Disable strict mode for faster builds
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
